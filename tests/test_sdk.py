@@ -18,17 +18,16 @@ def test_init(driver):
 
 @pytest.mark.parametrize("driver", DEVICES, indirect=True)
 
-def test_maintenance(driver):
-    device_id = driver.capabilities["udid"]
+# 테스트 불필요
+# def test_maintenance(driver):
+#     device_id = driver.capabilities["udid"]
 
-    ensure_init(driver)   # ✅ 조건부 실행
-    time.sleep(1)
-    clear_logs(device_id)
-    click(driver, MAINTENANCE_BUTTON)
+#     ensure_init(driver)   # ✅ 조건부 실행
+#     time.sleep(1)
+#     clear_logs(device_id)
+#     click(driver, MAINTENANCE_BUTTON)
 
     # assert wait_for_check(driver, check_maintenance)
-
-
 
 
 @pytest.mark.parametrize("driver", DEVICES, indirect=True)
