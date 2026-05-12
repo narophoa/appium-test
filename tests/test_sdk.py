@@ -15,10 +15,8 @@ def test_init(driver):
     click(driver, INIT_BUTTON)
     assert wait_for_check(driver, check_init)
 
-
-@pytest.mark.parametrize("driver", DEVICES, indirect=True)
-
 # 테스트 불필요
+# @pytest.mark.parametrize("driver", DEVICES, indirect=True)
 # def test_maintenance(driver):
 #     device_id = driver.capabilities["udid"]
 
