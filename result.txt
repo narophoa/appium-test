@@ -1,0 +1,50 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.1, pytest-8.3.4, pluggy-1.5.0 -- C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.13.1', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '8.3.4', 'pluggy': '1.5.0'}, 'Plugins': {'html': '4.2.0', 'metadata': '3.1.1'}, 'CI': 'true', 'BUILD_NUMBER': '17', 'BUILD_ID': '17', 'BUILD_URL': 'http://localhost:8080/job/appium-test/17/', 'NODE_NAME': 'built-in', 'JOB_NAME': 'appium-test', 'BUILD_TAG': 'jenkins-appium-test-17', 'EXECUTOR_NUMBER': '0', 'JENKINS_URL': 'http://localhost:8080/', 'WORKSPACE': 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\appium-test'}
+rootdir: E:\appium
+configfile: pytest.ini
+plugins: html-4.2.0, metadata-3.1.1
+collecting ... collected 5 items
+
+tests/test_sdk.py::test_init 
+Init Test
+PASSED
+tests/test_sdk.py::test_maintenance Init try
+no init log
+
+Maintenance Test
+PASSED
+tests/test_sdk.py::test_login_guest Init try
+no init log
+
+Login Guest Test
+PASSED
+tests/test_sdk.py::test_logout Init try
+no init log
+login guaranteed execution
+Secure login status
+
+Logout Test
+PASSED
+tests/test_sdk.py::test_purchase_basic Init try
+no init log
+login guaranteed execution
+Secure login status
+
+Purchase Basic Test
+PASSED
+
+============================ slowest 10 durations =============================
+21.61s call     tests/test_sdk.py::test_purchase_basic
+13.25s setup    tests/test_sdk.py::test_purchase_basic
+13.22s setup    tests/test_sdk.py::test_logout
+8.82s setup    tests/test_sdk.py::test_login_guest
+8.57s setup    tests/test_sdk.py::test_maintenance
+5.48s setup    tests/test_sdk.py::test_init
+4.40s call     tests/test_sdk.py::test_login_guest
+2.32s call     tests/test_sdk.py::test_logout
+1.44s call     tests/test_sdk.py::test_init
+1.41s call     tests/test_sdk.py::test_maintenance
+------------ Generated html report: file:///E:/appium/report.html -------------
+======================== 5 passed in 83.11s (0:01:23) =========================
