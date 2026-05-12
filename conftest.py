@@ -10,9 +10,7 @@ from utils.state import ensure_init, ensure_login, ensure_logout
 # -----------------------------
 # Appium server auto start
 # -----------------------------
-
 appium_processes = []
-
 
 def kill_existing_appium():
     print("Killing existing Appium servers...")
@@ -20,7 +18,6 @@ def kill_existing_appium():
         'wmic process where "commandline like \'%appium%\'" call terminate',
         shell=True
     )
-
 
 def start_appium_servers(devices):
     print("Starting Appium servers...")
@@ -40,7 +37,6 @@ def start_appium_servers(devices):
 
     time.sleep(5 + len(devices) * 2)
 
-
 def stop_appium_servers():
     print("Stopping Appium servers...")
     for p in appium_processes:
@@ -50,7 +46,6 @@ def stop_appium_servers():
 # -----------------------------
 # Device detect
 # -----------------------------
-
 def get_connected_devices():
     result = subprocess.check_output("adb devices", shell=True).decode()
     lines = result.strip().split("\n")[1:]
@@ -69,7 +64,6 @@ def get_connected_devices():
 
     return devices
 
-
 DEVICES = get_connected_devices()
 
 if not DEVICES:
@@ -79,7 +73,6 @@ if not DEVICES:
 # -----------------------------
 # pytest hooks
 # -----------------------------
-
 def pytest_sessionstart(session):
     kill_existing_appium()
     start_appium_servers(DEVICES)
@@ -90,13 +83,12 @@ def pytest_sessionfinish(session, exitstatus):
 
 
 # -----------------------------
-# driver (REUSE 핵심)
+# ✅ driver cache (핵심 추가)
 # -----------------------------
+DRIVERS = {}
 
-@pytest.fixture(scope="function")
-def driver(request):
-    device = request.param
 
+def create_driver(device):
     options = UiAutomator2Options()
     options.platform_name = "Android"
     options.device_name = device["deviceName"]
@@ -112,18 +104,51 @@ def driver(request):
 
     print(f"[Driver Created] {device['deviceName']}")
 
-    time.sleep(5)   # ❗ 추가 (중요)
+    time.sleep(5)
     driver.implicitly_wait(5)
 
+    return driver
+
+
+# -----------------------------
+# ✅ driver fixture (속도 개선)
+# -----------------------------
+@pytest.fixture(scope="function")
+def driver(request):
+    device = request.param
+    device_id = device["deviceName"]
+
+    # ✅ 이미 있으면 재사용
+    if device_id not in DRIVERS:
+        DRIVERS[device_id] = create_driver(device)
+
+    driver = DRIVERS[device_id]
+
+    # ✅ 상태 초기화
+    ensure_init(driver)
 
     yield driver
 
-    driver.quit()
-    print(f"[Driver Quit] {device['deviceName']}")
 
-
+# -----------------------------
+# login fixture
+# -----------------------------
 @pytest.fixture
 def loggedin_driver(driver):
-    ensure_init(driver)
     ensure_login(driver)
     return driver
+
+
+# -----------------------------
+# 종료 처리 (중요)
+# -----------------------------
+def pytest_sessionfinish(session, exitstatus):
+    print("Driver cleanup...")
+
+    for d in DRIVERS.values():
+        try:
+            d.quit()
+        except:
+            pass
+
+    stop_appium_servers()
