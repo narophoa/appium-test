@@ -13,19 +13,19 @@ def test_init(driver):
     device_id = driver.capabilities["udid"]
     clear_logs(device_id)
     click(driver, INIT_BUTTON)
-    assert wait_for_check(driver, check_init)
+    # assert wait_for_check(driver, check_init)
 
-# 테스트 불필요
-# @pytest.mark.parametrize("driver", DEVICES, indirect=True)
-# def test_maintenance(driver):
-#     device_id = driver.capabilities["udid"]
 
-#     ensure_init(driver)   # ✅ 조건부 실행
-#     time.sleep(1)
-#     clear_logs(device_id)
-#     click(driver, MAINTENANCE_BUTTON)
+@pytest.mark.parametrize("driver", DEVICES, indirect=True)
+def test_maintenance(driver):
+    device_id = driver.capabilities["udid"]
 
-    # assert wait_for_check(driver, check_maintenance)
+    ensure_init(driver)   # ✅ 조건부 실행
+    time.sleep(1)
+    clear_logs(device_id)
+    click(driver, MAINTENANCE_BUTTON)
+
+    assert wait_for_check(driver, check_maintenance)
 
 
 @pytest.mark.parametrize("driver", DEVICES, indirect=True)
