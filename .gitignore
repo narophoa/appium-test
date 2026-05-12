@@ -5,3 +5,4 @@ report.html
 logs/
 *.apk
 *.txt
+!requirements.txt
