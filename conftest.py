@@ -82,8 +82,7 @@ if not DEVICES:
 
 def pytest_sessionstart(session):
     kill_existing_appium()
-    start_appium_servers(DEVICES)
-    time.sleep(10)
+    start_appium_servers(DEVICES)    
 
 def pytest_sessionfinish(session, exitstatus):
     stop_appium_servers()
