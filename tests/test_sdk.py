@@ -7,7 +7,7 @@ import pytest, time
 from conftest import DEVICES
 
 
-#1
+#2
 @pytest.mark.parametrize("driver", DEVICES, indirect=True)
 def test_init(driver):
     device_id = driver.capabilities["udid"]
