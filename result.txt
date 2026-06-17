@@ -1,50 +1,281 @@
+(\\20170044I1\ROOT\CIMV2:Win32_Process.Handle="43000")->terminate() 실행 중
+메서드를 실행했습니다.
+Out 매개 변수:
+instance of __PARAMETERS
+{
+	ReturnValue = 0;
+};
+(\\20170044I1\ROOT\CIMV2:Win32_Process.Handle="38448")->terminate() 실행 중
+Killing existing Appium servers...
+Starting Appium servers...
+Appium started on port 4723
+Appium started on port 4725
 ============================= test session starts =============================
 platform win32 -- Python 3.13.1, pytest-8.3.4, pluggy-1.5.0 -- C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
 cachedir: .pytest_cache
-metadata: {'Python': '3.13.1', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '8.3.4', 'pluggy': '1.5.0'}, 'Plugins': {'html': '4.2.0', 'metadata': '3.1.1'}, 'CI': 'true', 'BUILD_NUMBER': '17', 'BUILD_ID': '17', 'BUILD_URL': 'http://localhost:8080/job/appium-test/17/', 'NODE_NAME': 'built-in', 'JOB_NAME': 'appium-test', 'BUILD_TAG': 'jenkins-appium-test-17', 'EXECUTOR_NUMBER': '0', 'JENKINS_URL': 'http://localhost:8080/', 'WORKSPACE': 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\appium-test'}
+metadata: {'Python': '3.13.1', 'Platform': 'Windows-11-10.0.26100-SP0', 'Packages': {'pytest': '8.3.4', 'pluggy': '1.5.0'}, 'Plugins': {'html': '4.2.0', 'metadata': '3.1.1', 'xdist': '3.8.0'}, 'CI': 'true', 'BUILD_NUMBER': '50', 'BUILD_ID': '50', 'BUILD_URL': 'http://localhost:8080/job/appium-test/50/', 'NODE_NAME': 'built-in', 'JOB_NAME': 'appium-test', 'BUILD_TAG': 'jenkins-appium-test-50', 'EXECUTOR_NUMBER': '0', 'JENKINS_URL': 'http://localhost:8080/', 'WORKSPACE': 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\appium-test', 'GIT_COMMIT': '2a9122a7a1881deab39c4d7d3bbe75e1be12099b', 'GIT_URL': 'git@github.com:narophoa/appium-test.git', 'GIT_BRANCH': 'origin/main'}
 rootdir: E:\appium
 configfile: pytest.ini
-plugins: html-4.2.0, metadata-3.1.1
-collecting ... collected 5 items
+plugins: html-4.2.0, metadata-3.1.1, xdist-3.8.0
+created: 1/1 worker
+1 worker [10 items]
 
-tests/test_sdk.py::test_init 
-Init Test
-PASSED
-tests/test_sdk.py::test_maintenance Init try
-no init log
+scheduling tests via LoadScheduling
 
-Maintenance Test
-PASSED
-tests/test_sdk.py::test_login_guest Init try
-no init log
+tests/test_sdk.py::test_init[driver0] 
+[gw0] PASSED tests/test_sdk.py::test_init[driver0] 
+tests/test_sdk.py::test_init[driver1] 
+[gw0] PASSED tests/test_sdk.py::test_init[driver1] 
+tests/test_sdk.py::test_maintenance[driver0] 
+[gw0] FAILED tests/test_sdk.py::test_maintenance[driver0] 
+tests/test_sdk.py::test_maintenance[driver1] 
+[gw0] FAILED tests/test_sdk.py::test_maintenance[driver1] 
+tests/test_sdk.py::test_login_guest[driver0] 
+[gw0] FAILED tests/test_sdk.py::test_login_guest[driver0] 
+tests/test_sdk.py::test_login_guest[driver1] 
+[gw0] FAILED tests/test_sdk.py::test_login_guest[driver1] 
+tests/test_sdk.py::test_logout[driver0] 
+[gw0] ERROR tests/test_sdk.py::test_logout[driver0] 
+tests/test_sdk.py::test_logout[driver1] 
+[gw0] ERROR tests/test_sdk.py::test_logout[driver1] 
+tests/test_sdk.py::test_purchase_basic[driver0] 
+[gw0] ERROR tests/test_sdk.py::test_purchase_basic[driver0] 
+tests/test_sdk.py::test_purchase_basic[driver1] 
+[gw0] ERROR tests/test_sdk.py::test_purchase_basic[driver1] Driver cleanup...
+Stopping Appium servers...
 
-Login Guest Test
-PASSED
-tests/test_sdk.py::test_logout Init try
-no init log
-login guaranteed execution
-Secure login status
 
-Logout Test
-PASSED
-tests/test_sdk.py::test_purchase_basic Init try
-no init log
-login guaranteed execution
-Secure login status
+=================================== ERRORS ====================================
+___________________ ERROR at setup of test_logout[driver0] ____________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
 
-Purchase Basic Test
-PASSED
+driver = <appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>
 
+    @pytest.fixture
+    def loggedin_driver(driver):
+>       ensure_login(driver)
+
+conftest.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+driver = <appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>
+
+    def ensure_login(driver):
+        if getattr(driver, "_logged_in", False):
+            return
+    
+        device_id = driver.capabilities["udid"]
+    
+        clear_logs(device_id)
+        perform_login(driver)
+    
+        if not wait_for_check(driver, check_login, timeout=15):
+>           raise Exception("Login failed")
+E           Exception: Login failed
+
+utils\state.py:48: Exception
+___________________ ERROR at setup of test_logout[driver1] ____________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+
+driver = <appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>
+
+    @pytest.fixture
+    def loggedin_driver(driver):
+>       ensure_login(driver)
+
+conftest.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+driver = <appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>
+
+    def ensure_login(driver):
+        if getattr(driver, "_logged_in", False):
+            return
+    
+        device_id = driver.capabilities["udid"]
+    
+        clear_logs(device_id)
+        perform_login(driver)
+    
+        if not wait_for_check(driver, check_login, timeout=15):
+>           raise Exception("Login failed")
+E           Exception: Login failed
+
+utils\state.py:48: Exception
+_______________ ERROR at setup of test_purchase_basic[driver0] ________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+
+driver = <appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>
+
+    @pytest.fixture
+    def loggedin_driver(driver):
+>       ensure_login(driver)
+
+conftest.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+driver = <appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>
+
+    def ensure_login(driver):
+        if getattr(driver, "_logged_in", False):
+            return
+    
+        device_id = driver.capabilities["udid"]
+    
+        clear_logs(device_id)
+        perform_login(driver)
+    
+        if not wait_for_check(driver, check_login, timeout=15):
+>           raise Exception("Login failed")
+E           Exception: Login failed
+
+utils\state.py:48: Exception
+_______________ ERROR at setup of test_purchase_basic[driver1] ________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+
+driver = <appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>
+
+    @pytest.fixture
+    def loggedin_driver(driver):
+>       ensure_login(driver)
+
+conftest.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+driver = <appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>
+
+    def ensure_login(driver):
+        if getattr(driver, "_logged_in", False):
+            return
+    
+        device_id = driver.capabilities["udid"]
+    
+        clear_logs(device_id)
+        perform_login(driver)
+    
+        if not wait_for_check(driver, check_login, timeout=15):
+>           raise Exception("Login failed")
+E           Exception: Login failed
+
+utils\state.py:48: Exception
+================================== FAILURES ===================================
+__________________________ test_maintenance[driver0] __________________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+
+driver = <appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>
+
+    @pytest.mark.parametrize("driver", DEVICES, indirect=True)
+    def test_maintenance(driver):
+        device_id = driver.capabilities["udid"]
+    
+        ensure_init(driver)   # \u2705 \uc870\uac74\ubd80 \uc2e4\ud589
+        time.sleep(1)
+        clear_logs(device_id)
+        click(driver, MAINTENANCE_BUTTON)
+    
+>       assert wait_for_check(driver, check_maintenance)
+E       assert False
+E        +  where False = wait_for_check(<appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>, check_maintenance)
+
+tests\test_sdk.py:28: AssertionError
+__________________________ test_maintenance[driver1] __________________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+
+driver = <appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>
+
+    @pytest.mark.parametrize("driver", DEVICES, indirect=True)
+    def test_maintenance(driver):
+        device_id = driver.capabilities["udid"]
+    
+        ensure_init(driver)   # \u2705 \uc870\uac74\ubd80 \uc2e4\ud589
+        time.sleep(1)
+        clear_logs(device_id)
+        click(driver, MAINTENANCE_BUTTON)
+    
+>       assert wait_for_check(driver, check_maintenance)
+E       assert False
+E        +  where False = wait_for_check(<appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>, check_maintenance)
+
+tests\test_sdk.py:28: AssertionError
+__________________________ test_login_guest[driver0] __________________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+
+driver = <appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>
+
+    @pytest.mark.parametrize("driver", DEVICES, indirect=True)
+    def test_login_guest(driver):
+        ensure_init(driver)
+>       ensure_login(driver)
+
+tests\test_sdk.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+driver = <appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>
+
+    def ensure_login(driver):
+        if getattr(driver, "_logged_in", False):
+            return
+    
+        device_id = driver.capabilities["udid"]
+    
+        clear_logs(device_id)
+        perform_login(driver)
+    
+        if not wait_for_check(driver, check_login, timeout=15):
+>           raise Exception("Login failed")
+E           Exception: Login failed
+
+utils\state.py:48: Exception
+__________________________ test_login_guest[driver1] __________________________
+[gw0] win32 -- Python 3.13.1 C:\Users\sanghyunlee\AppData\Local\Programs\Python\Python313\python.exe
+
+driver = <appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>
+
+    @pytest.mark.parametrize("driver", DEVICES, indirect=True)
+    def test_login_guest(driver):
+        ensure_init(driver)
+>       ensure_login(driver)
+
+tests\test_sdk.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+driver = <appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>
+
+    def ensure_login(driver):
+        if getattr(driver, "_logged_in", False):
+            return
+    
+        device_id = driver.capabilities["udid"]
+    
+        clear_logs(device_id)
+        perform_login(driver)
+    
+        if not wait_for_check(driver, check_login, timeout=15):
+>           raise Exception("Login failed")
+E           Exception: Login failed
+
+utils\state.py:48: Exception
 ============================ slowest 10 durations =============================
-21.61s call     tests/test_sdk.py::test_purchase_basic
-13.25s setup    tests/test_sdk.py::test_purchase_basic
-13.22s setup    tests/test_sdk.py::test_logout
-8.82s setup    tests/test_sdk.py::test_login_guest
-8.57s setup    tests/test_sdk.py::test_maintenance
-5.48s setup    tests/test_sdk.py::test_init
-4.40s call     tests/test_sdk.py::test_login_guest
-2.32s call     tests/test_sdk.py::test_logout
-1.44s call     tests/test_sdk.py::test_init
-1.41s call     tests/test_sdk.py::test_maintenance
+23.71s setup    tests/test_sdk.py::test_init[driver1]
+21.86s setup    tests/test_sdk.py::test_init[driver0]
+21.36s call     tests/test_sdk.py::test_login_guest[driver1]
+21.28s setup    tests/test_sdk.py::test_purchase_basic[driver1]
+21.23s setup    tests/test_sdk.py::test_logout[driver1]
+20.81s setup    tests/test_sdk.py::test_logout[driver0]
+20.81s call     tests/test_sdk.py::test_login_guest[driver0]
+20.74s setup    tests/test_sdk.py::test_purchase_basic[driver0]
+6.92s call     tests/test_sdk.py::test_maintenance[driver1]
+6.71s call     tests/test_sdk.py::test_maintenance[driver0]
 ------------ Generated html report: file:///E:/appium/report.html -------------
-======================== 5 passed in 83.11s (0:01:23) =========================
+=========================== short test summary info ===========================
+FAILED tests/test_sdk.py::test_maintenance[driver0] - assert False
+ +  where False = wait_for_check(<appium.webdriver.webdriver.WebDriver (session="48bcb63c-d6d3-4da3-a5b9-c3538d1fb0af")>, check_maintenance)
+FAILED tests/test_sdk.py::test_maintenance[driver1] - assert False
+ +  where False = wait_for_check(<appium.webdriver.webdriver.WebDriver (session="500fca77-99b1-451e-b3b0-2e9f1d2d3c12")>, check_maintenance)
+FAILED tests/test_sdk.py::test_login_guest[driver0] - Exception: Login failed
+FAILED tests/test_sdk.py::test_login_guest[driver1] - Exception: Login failed
+ERROR tests/test_sdk.py::test_logout[driver0] - Exception: Login failed
+ERROR tests/test_sdk.py::test_logout[driver1] - Exception: Login failed
+ERROR tests/test_sdk.py::test_purchase_basic[driver0] - Exception: Login failed
+ERROR tests/test_sdk.py::test_purchase_basic[driver1] - Exception: Login failed
+============== 4 failed, 2 passed, 4 errors in 207.93s (0:03:27) ==============
