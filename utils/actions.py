@@ -42,4 +42,3 @@ def perform_consume(driver):
     time.sleep(3)
 
 #
-#
