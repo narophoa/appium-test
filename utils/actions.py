@@ -41,4 +41,4 @@ def perform_consume(driver):
     click(driver, RECEIVE_ITEMS_BUTTON)
     time.sleep(3)
 
-#
+##
