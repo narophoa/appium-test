@@ -1,0 +1,4 @@
+[gw0] FAILED tests/test_sdk.py::test_maintenance[driver1] 
+[gw0] FAILED tests/test_sdk.py::test_login_guest[driver1] 
+FAILED tests/test_sdk.py::test_maintenance[driver1] - assert False
+FAILED tests/test_sdk.py::test_login_guest[driver1] - Exception: Login failed
